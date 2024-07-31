@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="quizApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diverse Knowledge Quiz</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="QuizController">
+
+<div class="container">
+    <div class="current-time">
+        <h5>Current Time: {{ currentTime | date:'HH:mm:ss' }}</h5>
+    </div>
+    <h1 class="text-center" style="color: #4682b4;">Diverse Knowledge Quiz</h1>
+    <button class="btn btn-primary start-btn" ng-click="startQuiz()" ng-show="!quizStarted">Start Quiz</button>
+    
+    <div ng-show="quizStarted">
+        <div class="panel panel-default" ng-repeat="question in questions">
+            <div class="panel-heading">
+                {{question.question}}
+            </div>
+            <div class="panel-body">
+                <div class="radio" ng-repeat="option in question.options">
+                    <label>
+                        <input type="radio" ng-model="question.userAnswer" ng-value="option"> {{option}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" ng-click="submitQuiz()">Submit</button>
+    </div>
+    
+    <div ng-show="result !== null" class="result-popup">
+        <h4>Quiz Completed</h4>
+        <p>You scored {{result}} out of {{questions.length}}.</p>
+        <p>Time taken: {{timeTaken}} seconds.</p>
+        <button class="btn btn-primary" ng-click="closePopup()">Close</button>
+    </div>
+</div>
+
+</body>
+</html>
